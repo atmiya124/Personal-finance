@@ -32,4 +32,3 @@ export const POST = handle(app);
 export const PATCH = handle(app);
 export const DELETE = handle(app);
 
-console.log("Categories loaded?", categories);
