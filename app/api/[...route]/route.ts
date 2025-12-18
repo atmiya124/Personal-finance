@@ -1,6 +1,7 @@
 
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
+import { cors } from 'hono/cors';
 
 import  summary from "./summary";
 import accounts from "./accounts";
@@ -10,7 +11,14 @@ import  transactions from "./transactions";
 export const runtime = "edge"
 
 
+
 const app = new Hono().basePath("/api")
+// Add CORS middleware for your Vercel frontend domain
+app.use('*', cors({
+    origin: 'https://personal-finance-6yzca1oqm-atmiya124s-projects.vercel.app',
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // Global error handler middleware
 app.onError((err, c) => {
