@@ -312,4 +312,4 @@ const app = new Hono()
         },
     );
 
-export default app;
+export default app.handler;
