@@ -1,4 +1,4 @@
-"use client"
+// ...removed 'use client' per server-only DB rule
 
 import { useNewCategory } from "@/features/categories/hooks/use-new-category";
 import { useBulkDeleteCategories } from "@/features/categories/api/use-bulk-delete-categories";

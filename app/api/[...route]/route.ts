@@ -3,6 +3,9 @@ import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { cors } from 'hono/cors';
 
+// TEMP: Log if DATABASE_URL exists
+console.log("DB URL exists:", !!process.env.DATABASE_URL);
+
 import  summary from "./summary";
 import accounts from "./accounts";
 import  categories from "./categories";

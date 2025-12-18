@@ -1,4 +1,4 @@
-"use client"
+// ...removed 'use client' per server-only DB rule
 
 import { format } from "date-fns";
 import { ArrowUpDown } from "lucide-react";

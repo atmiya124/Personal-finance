@@ -1,4 +1,4 @@
-"use client"
+// ...removed 'use client' per server-only DB rule
 
 import { ArrowUpDown } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";

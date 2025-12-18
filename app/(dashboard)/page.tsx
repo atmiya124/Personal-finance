@@ -1,5 +1,5 @@
 // import { UserButton } from "@clerk/nextjs"
-"use client";
+// ...removed 'use client' per server-only DB rule
 
 
 import { DataCharts } from "@/components/data-charts";

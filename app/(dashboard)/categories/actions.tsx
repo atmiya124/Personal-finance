@@ -1,4 +1,4 @@
-"use client";
+// ...removed 'use client' per server-only DB rule
 
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
