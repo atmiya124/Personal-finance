@@ -7,7 +7,6 @@ import {
 } from "recharts";
 
 
-import { CategotyTooltip } from "./category-tooltip";
 import { formatCurrency } from "@/lib/utils";
 
 const COLORS = [ "#0062ff", "#12c6ff", "#ff647f", "#ff9354",]

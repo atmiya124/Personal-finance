@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z, ZodType } from "zod";
 import { timestamp } from "drizzle-orm/pg-core";
 import { integer, pgTable, text } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
@@ -14,10 +14,10 @@ export const accounts = pgTable("accounts", {
 
 export const accountsRelations = relations(accounts, ({ many }) => ({
     transactions: many(transactions),
+
 }));
 
-export const insertAccountSchema = createInsertSchema(accounts);
-
+// ...insertTransactionSchema will be defined after transactions and relations...
 export const categories = pgTable("categories", {
     id: text("id").primaryKey(),
     plaidId: text("plaid_id"),
@@ -56,7 +56,8 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
     }),
 }));
 
-export const insertTransactionSchema = createInsertSchema(transactions, {
-    date: z.string(),
-});
+export const insertAccountSchema = createInsertSchema(accounts);
+export const insertTransactionSchema = createInsertSchema(transactions);
+
+
 

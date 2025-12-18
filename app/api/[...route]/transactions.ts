@@ -17,7 +17,7 @@ const transactionApiSchema = z.object({
 });
 
 
-import { parse, subDays } from "date-fns"
+import { parse } from "date-fns"
 import { and, desc, eq, gte, inArray, lte, sql } from "drizzle-orm";
 
 const app = new Hono()
@@ -39,7 +39,7 @@ const app = new Hono()
 
 
             // Build dynamic date filters
-            let dateFilters = [];
+            const dateFilters = [];
             if (from) {
                 const startDate = parse(from, "yyyy-MM-dd", new Date());
                 dateFilters.push(gte(transactions.date, startDate));

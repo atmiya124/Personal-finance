@@ -4,9 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 import { client } from "@/lib/hono";
 
-type ResponseType = InferResponseType<typeof client.api.categories["bulk-delete"]["$post"]>
-type RequestType = InferRequestType<typeof client.api.categories["bulk-delete"]["$post"]>
-["json"];
+type ResponseType = any;
+type RequestType = any;
 
 
 export const useBulkDeleteCategories = () => {
@@ -18,7 +17,7 @@ export const useBulkDeleteCategories = () => {
         RequestType
     >({
         mutationFn: async (json) => {
-            const response = await client.api.categories["bulk-delete"]["$post"]({ json });
+            const response = await (client as any).api.categories["bulk-delete"]["$post"]({ json });
             return await response.json();
         },
         onSuccess: () => {

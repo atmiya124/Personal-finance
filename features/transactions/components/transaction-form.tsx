@@ -34,14 +34,14 @@ const formSchema = z.object({
     payee: z.string(),
     amount: z.string(),
     notes: z.string().nullable().optional(),
-});
+}) as unknown as z.ZodType<any, any, any>;
 
 const apiSchema = insertTransactionSchema.omit({
     id: true,
-});
+}) as unknown as z.ZodType<any, any, any>;
 
-type FormValues = z.input<typeof formSchema>;
-type ApiFormValues = z.input<typeof apiSchema>;
+type FormValues = z.infer<typeof formSchema>;
+type ApiFormValues = z.infer<typeof apiSchema>;
 
 type Props = {
     id?: string;
@@ -104,7 +104,7 @@ export const TransactionForm = ({
                             <FormControl>
                                 <DatePicker 
                                     value={field.value ?? ""}
-                                    onChange={(date) => field.onChange(date)}
+                                    onChange={(selected, _date, _modifiers, _event) => field.onChange(selected)}
                                     disabled={disabled}
                                 />
                             </FormControl>
@@ -181,7 +181,6 @@ export const TransactionForm = ({
                             {/* Pass id and ref directly to Input for proper focus */}
                             <Input
                                 id={field.name}
-                                ref={field.ref}
                                 disabled={disabled}
                                 placeholder="Add a payee"
                                 {...field}

@@ -91,56 +91,88 @@ export function DataTable<TData, TValue>({
                 }
                 className="max-w-sm"
             />
-            {/* Account filter as shadcn Select */}
-            <ShadcnSelect
-                value={(table.getColumn('account')?.getFilterValue() as string) ?? "__all__"}
-                onValueChange={(value) => {
-                    if (value === "__all__") {
-                        table.getColumn('account')?.setFilterValue(undefined);
-                    } else {
-                        table.getColumn('account')?.setFilterValue(value);
-                    }
-                }}
-            >
-                <SelectTrigger className="w-45">
-                    <SelectValue placeholder="Filter by account" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="__all__">All Accounts</SelectItem>
-                    {Array.from(new Set(data.map((row: any) => row.account)))
-                        .filter((value) => !!value && value !== "")
-                        .map((value) => (
-                            <SelectItem key={value} value={value}>
-                                {value}
-                            </SelectItem>
-                        ))}
-                </SelectContent>
-            </ShadcnSelect>
-            {/* Category filter as shadcn Select */}
-            <ShadcnSelect
-                value={(table.getColumn('name')?.getFilterValue() as string) ?? "__all__"}
-                onValueChange={(value) => {
-                    if (value === "__all__") {
-                        table.getColumn('name')?.setFilterValue(undefined);
-                    } else {
-                        table.getColumn('name')?.setFilterValue(value);
-                    }
-                }}
-            >
-                <SelectTrigger className="w-45">
-                    <SelectValue placeholder="Filter by category" />
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectItem value="__all__">All Categories</SelectItem>
-                    {Array.from(new Set(data.map((row: any) => row.name)))
-                        .filter((value) => !!value && value !== "")
-                        .map((value) => (
-                            <SelectItem key={value} value={value}>
-                                {value}
-                            </SelectItem>
-                        ))}
-                </SelectContent>
-            </ShadcnSelect>
+                        {/* Only render account/category filters if those columns exist */}
+                        {/* Only render account filter if column exists in the current columns prop */}
+                        {columns.some(col => typeof col === 'object' && 'accessorKey' in col && col.accessorKey === 'account') && table.getColumn('account') && (
+                            <ShadcnSelect
+                                value={(table.getColumn('account')?.getFilterValue() as string) ?? "__all__"}
+                                onValueChange={(value) => {
+                                    if (value === "__all__") {
+                                        table.getColumn('account')?.setFilterValue(undefined);
+                                    } else {
+                                        table.getColumn('account')?.setFilterValue(value);
+                                    }
+                                }}
+                            >
+                                <SelectTrigger className="w-45">
+                                    <SelectValue placeholder="Filter by account" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="__all__">All Accounts</SelectItem>
+                                    {Array.from(new Set(data.map((row: any) => row.account)))
+                                        .filter((value) => !!value && value !== "")
+                                        .map((value) => (
+                                            <SelectItem key={value} value={value}>
+                                                {value}
+                                            </SelectItem>
+                                        ))}
+                                </SelectContent>
+                            </ShadcnSelect>
+                        )}
+                        {/* Category filter: support both 'name' and 'category' columns */}
+                        {/* Only render category filter if column exists in the current columns prop */}
+                        {columns.some(col => typeof col === 'object' && 'accessorKey' in col && col.accessorKey === 'name') && table.getColumn('name') && (
+                            <ShadcnSelect
+                                value={(table.getColumn('name')?.getFilterValue() as string) ?? "__all__"}
+                                onValueChange={(value) => {
+                                    if (value === "__all__") {
+                                        table.getColumn('name')?.setFilterValue(undefined);
+                                    } else {
+                                        table.getColumn('name')?.setFilterValue(value);
+                                    }
+                                }}
+                            >
+                                <SelectTrigger className="w-45">
+                                    <SelectValue placeholder="Filter by category" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="__all__">All Categories</SelectItem>
+                                    {Array.from(new Set(data.map((row: any) => row.name)))
+                                        .filter((value) => !!value && value !== "")
+                                        .map((value) => (
+                                            <SelectItem key={value} value={value}>
+                                                {value}
+                                            </SelectItem>
+                                        ))}
+                                </SelectContent>
+                            </ShadcnSelect>
+                        )}
+                        {columns.some(col => typeof col === 'object' && 'accessorKey' in col && col.accessorKey === 'category') && table.getColumn('category') && (
+                            <ShadcnSelect
+                                value={(table.getColumn('category')?.getFilterValue() as string) ?? "__all__"}
+                                onValueChange={(value) => {
+                                    if (value === "__all__") {
+                                        table.getColumn('category')?.setFilterValue(undefined);
+                                    } else {
+                                        table.getColumn('category')?.setFilterValue(value);
+                                    }
+                                }}
+                            >
+                                <SelectTrigger className="w-45">
+                                    <SelectValue placeholder="Filter by category" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="__all__">All Categories</SelectItem>
+                                    {Array.from(new Set(data.map((row: any) => row.category)))
+                                        .filter((value) => !!value && value !== "")
+                                        .map((value) => (
+                                            <SelectItem key={value} value={value}>
+                                                {value}
+                                            </SelectItem>
+                                        ))}
+                                </SelectContent>
+                            </ShadcnSelect>
+                        )}
             {table.getFilteredSelectedRowModel().rows.length > 0 && (
                 <Button
                     disabled={disabled}

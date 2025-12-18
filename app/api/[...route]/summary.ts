@@ -1,5 +1,5 @@
 import { db } from "@/db/drizzle";
-import { and, desc, eq, gte, lt, lte, sql, sum } from "drizzle-orm";
+import { and, desc, eq, gte, lt, lte, sql } from "drizzle-orm";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
@@ -21,10 +21,12 @@ const app = new Hono()
       })
     ),
     async (c) => {
+
       const auth = getAuth(c);
       const { from, to, accountId } = c.req.valid("query");
 
-      if (!auth.userId) {
+      // Safe: check for null or missing userId
+      if (!auth || !auth.userId) {
         return c.json({ error: "Unauthorized" }, 401);
       }
 

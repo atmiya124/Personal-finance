@@ -26,9 +26,9 @@ export const DatePicker = ({
 }: Props) => {
     const [open, setOpen] = React.useState(false);
 
-    const handleSelect = (date: Date | undefined) => {
-        if (onChange) onChange(date);
-        if (date) setOpen(false);
+    const handleSelect: SelectSingleEventHandler = (selected, triggerDate, modifiers, e) => {
+        if (onChange) onChange(selected, triggerDate, modifiers, e);
+        if (selected) setOpen(false);
     };
 
     return (

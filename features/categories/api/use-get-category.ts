@@ -6,7 +6,7 @@ export const useGetCategory = (id?: string) => {
         enabled: !!id,
         queryKey: ["category", { id }],
         queryFn: async () => {
-            const response = await client.api.categories[":id"].$get({
+            const response = await (client as any).api.categories[":id"].$get({
                 param: { id },
             });
 

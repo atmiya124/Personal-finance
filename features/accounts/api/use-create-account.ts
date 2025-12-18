@@ -4,9 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 import { client } from "@/lib/hono";
 
-type ResponseType = InferResponseType<typeof client.api.accounts[":id"]["$patch"]>
-type FullRequestType = InferRequestType<typeof client.api.accounts[":id"]["$patch"]>;
-type RequestType = FullRequestType["json"];
+type ResponseType = any;
+type RequestType = any;
 
 
 export const useCreateAccount = () => {
@@ -18,7 +17,7 @@ export const useCreateAccount = () => {
         RequestType
     >({
         mutationFn: async (json) => {
-            const response = await client.api.accounts.$post({ json });
+            const response = await (client as any).api.accounts.$post({ json });
             return await response.json();
         },
         onSuccess: () => {

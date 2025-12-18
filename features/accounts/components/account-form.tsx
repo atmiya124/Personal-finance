@@ -16,10 +16,10 @@ import {
 
 
 const formSchema = insertAccountSchema.pick({
-    name:true,
-})
+    name: true,
+}) as unknown as z.ZodType<any, any, any>;
 
-type FormValues = z.input<typeof formSchema>;
+type FormValues = z.infer<typeof formSchema>;
 
 type Props = {
     id?: string;

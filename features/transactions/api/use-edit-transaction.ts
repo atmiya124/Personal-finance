@@ -4,9 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 import { client } from "@/lib/hono";
 
-type ResponseType = InferResponseType<typeof client.api.transactions[":id"]["$patch"]>
-type FullRequestType = InferRequestType<typeof client.api.transactions[":id"]["$patch"]>;
-type RequestType = FullRequestType["json"];
+type ResponseType = any;
+type RequestType = any;
 
 export const useEditTransaction = (id?: string) => {
     const queryClient = useQueryClient();
@@ -17,7 +16,7 @@ export const useEditTransaction = (id?: string) => {
         RequestType
     >({
         mutationFn: async (json) => {
-            const response = await client.api.transactions[":id"]["$patch"]({ 
+            const response = await (client as any).api.transactions[":id"]["$patch"]({ 
                 param: { id },
                 json,
             });

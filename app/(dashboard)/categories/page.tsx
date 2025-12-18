@@ -14,8 +14,10 @@ import {
     CardTitle,
 
  } from "@/components/ui/card";
+
 import { columns } from "./columns";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Suspense } from "react";
 
 const CategoriesPage = () => {
 
@@ -45,34 +47,34 @@ const CategoriesPage = () => {
         );
     }
 
-    return ( 
-        <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
-            <Card className="border-none drop-shadow-sm">
-                <CardHeader className="gap-y-2 lg:flex lg:items-center lg:justify-between">
-                    <CardTitle className="text-xl line-clamp-1">
-                        Categories Page
-                    </CardTitle>
-                    <Button onClick={newCategories.onOpen} size="sm">
-                        <Plus className="size-4 mr-2" />Add New
-                        
-                    </Button>
-                </CardHeader>
-                <CardContent>
-                    <DataTable 
-                        filterKey="name"
-                        columns={columns} 
-                        data={categories} 
-                        onDelete={(row) => {
-                            const ids = row.map((r) => r.original.id);
-                            deleteCategories.mutate({ ids });
-                        }}
-                        disabled={isDesabled}
-                    />
-                </CardContent>
-            </Card>
-            
-        </div>
-     );
+    return (
+        <Suspense fallback={<div className="w-full flex justify-center items-center h-96"><Loader2 className="size-6 text-slate-300 animate-spin" /></div>}>
+            <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
+                <Card className="border-none drop-shadow-sm">
+                    <CardHeader className="gap-y-2 lg:flex lg:items-center lg:justify-between">
+                        <CardTitle className="text-xl line-clamp-1">
+                            Categories Page
+                        </CardTitle>
+                        <Button onClick={newCategories.onOpen} size="sm">
+                            <Plus className="size-4 mr-2" />Add New
+                        </Button>
+                    </CardHeader>
+                    <CardContent>
+                        <DataTable
+                            filterKey="name"
+                            columns={columns}
+                            data={categories}
+                            onDelete={(row) => {
+                                const ids = row.map((r) => r.original.id);
+                                deleteCategories.mutate({ ids });
+                            }}
+                            disabled={isDesabled}
+                        />
+                    </CardContent>
+                </Card>
+            </div>
+        </Suspense>
+    );
 }
  
 export default CategoriesPage;

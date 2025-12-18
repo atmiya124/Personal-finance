@@ -23,10 +23,9 @@ import {
 } from "@/components/ui/sheet";
 
 const formSchema = insertTransactionSchema.omit({
-    id:true,
-})
-
-type FormValues = z.input<typeof formSchema>;
+    id: true,
+}) as unknown as z.ZodType<any, any, any>;
+type FormValues = z.infer<typeof formSchema>;
 
 const NewTransactionSheet = () => {
     const {isOpen, onClose} = useNewTransaction();
@@ -38,7 +37,7 @@ const NewTransactionSheet = () => {
     const onCreateCategory = (name: string) => categoryMutation.mutate({
         name
     });
-    const categoryOptions = (categoryQuery.data ?? []).map((category) => ({
+    const categoryOptions = (categoryQuery.data ?? []).map((category: { id: string; name: string }) => ({
         label: category.name,
         value: category.id,
     }));
@@ -48,7 +47,7 @@ const NewTransactionSheet = () => {
     const onCreateAccount = (name: string) => accountMutation.mutate({
         name
     });
-    const accountOptions = (accountQuery.data ?? []).map((account) => ({
+    const accountOptions = (accountQuery.data ?? []).map((account: { id: string; name: string }) => ({
         label: account.name,
         value: account.id,
     }));

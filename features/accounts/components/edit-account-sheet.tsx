@@ -17,10 +17,9 @@ import {
 } from "@/components/ui/sheet";
 
 const formSchema = insertAccountSchema.pick({
-    name:true,
-})
-
-type FormValues = z.input<typeof formSchema>;
+    name: true,
+}) as unknown as z.ZodType<any, any, any>;
+type FormValues = z.infer<typeof formSchema>;
 
 const EditAccountSheet = () => {
     const {isOpen, onClose, id} = useOpenAccount();

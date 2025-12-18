@@ -1,11 +1,16 @@
 import { formatCurrency } from "@/lib/utils";
 import { Separator } from "@radix-ui/react-select";
 
-export const CategotyTooltip = ({ active, payload }: any) => {
+interface CategoryTooltipProps {
+  active?: boolean;
+  payload?: Array<{ payload: { name: string }; value: number }>;
+}
+
+export const CategotyTooltip = ({ active, payload }: CategoryTooltipProps) => {
     if (!active) return null;
 
-    const name = payload[0].payload.name;
-    const value = payload[0].value;
+    const name = payload && payload[0]?.payload?.name;
+    const value = payload && payload[0]?.value;
 
     return (
         <div className="rounded-sm bg-white shadow-sm border overflow-hidden">
@@ -22,7 +27,7 @@ export const CategotyTooltip = ({ active, payload }: any) => {
                         </p>
                     </div>
                     <p className="text-sm text-right font-medium">
-                        {formatCurrency(value * -1)}
+                        {formatCurrency((value ?? 0) * -1)}
                     </p>
                 </div>
 

@@ -106,7 +106,7 @@ export const ImportCard = ({
                 try {
                     const parsed = parse(item.date, dateFormat, new Date());
                     formattedDate = format(parsed, outputFormat);
-                } catch (e) {
+                } catch {
                     formattedDate = "";
                 }
             }

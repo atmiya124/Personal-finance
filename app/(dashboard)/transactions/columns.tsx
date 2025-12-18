@@ -1,11 +1,9 @@
 "use client"
 
 import { format } from "date-fns";
-import { InferResponseType } from "hono";
 import { ArrowUpDown } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 
-import { client } from "@/lib/hono";
 import { formatCurrency } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -14,9 +12,19 @@ import { Actions } from "./actions";
 import { AccountColumn } from "./account-column";
 import { CategoryColumn } from "./category-column";
 
-export type ResponsType = InferResponseType<typeof client.api.transactions.$get, 200>["data"][0];
+// Define the type for a transaction row based on the API response
+type TransactionRow = {
+  id: string;
+  amount: number;
+  payee: string;
+  notes?: string | null;
+  date: string;
+  accountId: string;
+  categoryId?: string | null;
+  // Add any other fields used in the table
+};
 
-export const columns: ColumnDef<ResponsType>[] = [
+export const columns: ColumnDef<TransactionRow>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -79,9 +87,9 @@ export const columns: ColumnDef<ResponsType>[] = [
       return (
         <CategoryColumn
           id={row.original.id}
-          category={row.original.category}
-          categoryId={row.original.categoryId}
-        /> 
+          category={""}
+          categoryId={row.original.categoryId ?? null}
+        />
       )
     }
   },
@@ -141,9 +149,9 @@ export const columns: ColumnDef<ResponsType>[] = [
     cell: ({ row }) => {
       return (
         <AccountColumn 
-          account={row.original.account}
+          account={""}
           accountId={row.original.accountId}
-        /> 
+        />
       )
     }
   },

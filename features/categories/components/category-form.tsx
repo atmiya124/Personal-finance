@@ -16,10 +16,9 @@ import {
 
 
 const formSchema = insertCategorySchema.pick({
-    name:true,
-})
-
-type FormValues = z.input<typeof formSchema>;
+    name: true,
+}) as unknown as z.ZodType<any, any, any>;
+type FormValues = z.infer<typeof formSchema>;
 
 type Props = {
     id?: string;

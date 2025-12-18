@@ -26,7 +26,7 @@ import {
                 accountMutation.mutate({ name });
             }
         };
-        const accountOptions = (accountQuery.data ?? []).map((account) => ({
+        const accountOptions = (accountQuery.data ?? []).map((account: { id: string; name: string }) => ({
             label: account.name,
             value: account.id,
         }));

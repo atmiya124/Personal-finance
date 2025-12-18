@@ -15,7 +15,7 @@ export const useGetSummary = () => {
         
         queryKey: ["summary", { from, to, accountId }],
         queryFn: async () => {
-            const response = await client.api.summary.$get({
+            const response = await (client as any).api.summary.$get({
                 query: {
                     from,
                     to,
@@ -34,11 +34,11 @@ export const useGetSummary = () => {
                 incomeAmount: converAmountFromMiliunits(data.incomeAmount),
                 expensesAmount: converAmountFromMiliunits(data.expensesAmount),
                 remainingAmount: converAmountFromMiliunits(data.remainingAmount),
-                categories: data.categories.map((category) => ({
+                categories: data.categories.map((category: { value: number; [key: string]: any }) => ({
                     ...category,
                     value: converAmountFromMiliunits(category.value)    
                 })),
-                days: data.days.map((day) => ({
+                days: data.days.map((day: { income: number; expenses: number; [key: string]: any }) => ({
                     ...day,
                     income: converAmountFromMiliunits(day.income),
                     expenses: converAmountFromMiliunits(day.expenses),

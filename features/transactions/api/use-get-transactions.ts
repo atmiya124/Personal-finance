@@ -15,7 +15,7 @@ export const useGetTransactions = () => {
         
         queryKey: ["transactions", { from, to, accountId }],
         queryFn: async () => {
-            const response = await client.api.transactions.$get({
+            const response = await (client as any).api.transactions.$get({
                 query: {
                     from,
                     to,
@@ -28,7 +28,7 @@ export const useGetTransactions = () => {
             }
 
             const { data } = await response.json()
-            return data.map((transaction) => ({
+            return data.map((transaction: { amount: number; [key: string]: any }) => ({
                 ...transaction,
                 amount: converAmountFromMiliunits(transaction.amount)
             }))
