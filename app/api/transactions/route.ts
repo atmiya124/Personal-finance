@@ -1,7 +1,7 @@
 import { handle } from "hono/vercel";
-import transactions from "../[...route]/transactions";
+import app from "../[...route]/transactions";
 
-export const GET = handle(transactions);
-export const POST = handle(transactions);
-export const PATCH = handle(transactions);
-export const DELETE = handle(transactions);
+export const GET = handle(app);
+export const POST = handle(app);
+export const PATCH = handle(app);
+export const DELETE = handle(app);
