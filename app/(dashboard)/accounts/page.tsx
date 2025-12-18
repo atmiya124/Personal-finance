@@ -1,4 +1,4 @@
-// ...removed 'use client' per server-only DB rule
+"use client";
 
 import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
 import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
